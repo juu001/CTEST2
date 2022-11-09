@@ -132,6 +132,7 @@ void AMyActor::BeginPlay()
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 3, FColor::Black, TEXT("no"));
 	}
+	GWorld->GetFirstPlayerController()->ConsoleCommand("TestLog");
 }
 
 // Called every frame

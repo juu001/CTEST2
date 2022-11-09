@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "Blueprint/UserWidget.h"
 #include "TestActor.generated.h"
 
 UCLASS()
@@ -23,12 +22,15 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-	UPROPERTY(EditAnywhere, Category = "Particle")
-	UParticleSystem* FX_DirectPropertyReference;
+
+	virtual void OnConstruction(const FTransform& Transform) override;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Particle")
+	class UParticleSystem* FX_DirectPropertyReference;
 
 	// 클래스 형태는 일반 유형은 생성된 객체 포인트 정보를 담고 있다.
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "userwidget")
-	UUserWidget* widget1;
+	class UUserWidget* widget1;
 	
 	/* TSubclassOf<T> 클래스 형태의 직접 레퍼런싱
 	* 이 데이텨형은 type안정성을 위해 사용하는 경우가 많다
@@ -36,11 +38,25 @@ public:
 	* 
 	*/
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "userwidget")
-	TSubclassOf<UUserWidget> widget_class;
+	class TSubclassOf<UUserWidget> widget_class;
 
 	/* SoftClassPtr<T> 간접 레퍼런싱 수동 로딩
 	* 말 그대로 Class의 소프트 포인터라는 뜻으로, 해당 값이 가리키는 데이터는 직접 지정한 템플릿형의 데이터일 것
 	*/
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "userwidget")
-	TSoftClassPtr<UUserWidget> widget_softClass;
+	class TSoftClassPtr<UUserWidget> widget_softClass;
+
+	UFUNCTION()
+	void OnAsset();
+
+	UFUNCTION()
+	void OnAsset2();
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Building")
+	UStaticMesh* BashMesh;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Building")
+	TSoftObjectPtr<UStaticMesh> SoftMesh;
+
+	class UStaticMeshComponent* mMesh;
 };

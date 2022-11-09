@@ -4,6 +4,8 @@
 #include "CTEST2GameModeBase.h"
 #include "EngineUtils.h"
 #include "MyObject.h"
+#include "MyActor.h"
+
 
 void ACTEST2GameModeBase::BeginPlay()
 {
@@ -41,4 +43,17 @@ void ACTEST2GameModeBase::BeginPlay()
 		}
 	}
 	
+	SpawnActorType<AMyActor>(GWorld);
+
+}
+
+void ACTEST2GameModeBase::TestLog()
+{
+	GEngine->AddOnScreenDebugMessage(-1, 3, FColor::Silver, TEXT("hello"));
+
+}
+
+void ACTEST2GameModeBase::PrintString(FString String)
+{
+	GEngine->AddOnScreenDebugMessage(-1, 3, FColor::Silver, String);
 }
